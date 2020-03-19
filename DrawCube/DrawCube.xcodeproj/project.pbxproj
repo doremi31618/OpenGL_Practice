@@ -28,7 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6B70D99124192B4700F586D7 /* opengl_retest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = opengl_retest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B70D99124192B4700F586D7 /* DrawCube */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DrawCube; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B70D99424192B4700F586D7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6B70D99C24192BAD00F586D7 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		6B70D99D24192BAD00F586D7 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -59,7 +59,7 @@
 		6B70D98824192B4700F586D7 = {
 			isa = PBXGroup;
 			children = (
-				6B70D99324192B4700F586D7 /* opengl_retest */,
+				6B70D99324192B4700F586D7 /* DrawCube */,
 				6B70D99224192B4700F586D7 /* Products */,
 				6B70D99B24192BAD00F586D7 /* Frameworks */,
 			);
@@ -68,17 +68,17 @@
 		6B70D99224192B4700F586D7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6B70D99124192B4700F586D7 /* opengl_retest */,
+				6B70D99124192B4700F586D7 /* DrawCube */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6B70D99324192B4700F586D7 /* opengl_retest */ = {
+		6B70D99324192B4700F586D7 /* DrawCube */ = {
 			isa = PBXGroup;
 			children = (
 				6B70D99424192B4700F586D7 /* main.cpp */,
 			);
-			path = opengl_retest;
+			path = DrawCube;
 			sourceTree = "<group>";
 		};
 		6B70D99B24192BAD00F586D7 /* Frameworks */ = {
@@ -99,9 +99,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6B70D99024192B4700F586D7 /* opengl_retest */ = {
+		6B70D99024192B4700F586D7 /* DrawCube */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6B70D99824192B4700F586D7 /* Build configuration list for PBXNativeTarget "opengl_retest" */;
+			buildConfigurationList = 6B70D99824192B4700F586D7 /* Build configuration list for PBXNativeTarget "DrawCube" */;
 			buildPhases = (
 				6B70D98D24192B4700F586D7 /* Sources */,
 				6B70D98E24192B4700F586D7 /* Frameworks */,
@@ -111,9 +111,9 @@
 			);
 			dependencies = (
 			);
-			name = opengl_retest;
+			name = DrawCube;
 			productName = opengl_retest;
-			productReference = 6B70D99124192B4700F586D7 /* opengl_retest */;
+			productReference = 6B70D99124192B4700F586D7 /* DrawCube */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -130,7 +130,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6B70D98C24192B4700F586D7 /* Build configuration list for PBXProject "opengl_retest" */;
+			buildConfigurationList = 6B70D98C24192B4700F586D7 /* Build configuration list for PBXProject "DrawCube" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -143,7 +143,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6B70D99024192B4700F586D7 /* opengl_retest */,
+				6B70D99024192B4700F586D7 /* DrawCube */,
 			);
 		};
 /* End PBXProject section */
@@ -304,7 +304,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6B70D98C24192B4700F586D7 /* Build configuration list for PBXProject "opengl_retest" */ = {
+		6B70D98C24192B4700F586D7 /* Build configuration list for PBXProject "DrawCube" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B70D99624192B4700F586D7 /* Debug */,
@@ -313,7 +313,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6B70D99824192B4700F586D7 /* Build configuration list for PBXNativeTarget "opengl_retest" */ = {
+		6B70D99824192B4700F586D7 /* Build configuration list for PBXNativeTarget "DrawCube" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B70D99924192B4700F586D7 /* Debug */,

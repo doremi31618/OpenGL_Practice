@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6B70D99024192B4700F586D7"
-               BuildableName = "opengl_retest"
-               BlueprintName = "opengl_retest"
-               ReferencedContainer = "container:opengl_retest.xcodeproj">
+               BuildableName = "DrawCube"
+               BlueprintName = "DrawCube"
+               ReferencedContainer = "container:DrawCube.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6B70D99024192B4700F586D7"
-            BuildableName = "opengl_retest"
-            BlueprintName = "opengl_retest"
-            ReferencedContainer = "container:opengl_retest.xcodeproj">
+            BuildableName = "DrawCube"
+            BlueprintName = "DrawCube"
+            ReferencedContainer = "container:DrawCube.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6B70D99024192B4700F586D7"
-            BuildableName = "opengl_retest"
-            BlueprintName = "opengl_retest"
-            ReferencedContainer = "container:opengl_retest.xcodeproj">
+            BuildableName = "DrawCube"
+            BlueprintName = "DrawCube"
+            ReferencedContainer = "container:DrawCube.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
