@@ -11,8 +11,9 @@
 		6B70D99F24192BAD00F586D7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B70D99C24192BAD00F586D7 /* OpenGL.framework */; };
 		6B70D9A024192BAD00F586D7 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B70D99D24192BAD00F586D7 /* GLKit.framework */; };
 		6B70D9A124192BAD00F586D7 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B70D99E24192BAD00F586D7 /* GLUT.framework */; };
-		6B7C50EC241BA00D006DDD4C /* GLFW in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B7C50EB241BA00D006DDD4C /* GLFW */; };
 		6B7C50EE241BA02F006DDD4C /* GL in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B7C50ED241BA02F006DDD4C /* GL */; };
+		6BE9CD7A242A3DDF00A45E3A /* GLFW in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE9CD79242A3D8900A45E3A /* GLFW */; };
+		6BE9CD7E242A408F00A45E3A /* glm in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE9CD7D242A408F00A45E3A /* glm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,10 +35,13 @@
 		6B70D99D24192BAD00F586D7 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		6B70D99E24192BAD00F586D7 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		6B70D9A22419304D00F586D7 /* GL */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GL; path = ../GL; sourceTree = "<group>"; };
-		6B7C50EB241BA00D006DDD4C /* GLFW */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GLFW; path = ../../../../../usr/local/Cellar/glfw/3.3.1/include/GLFW; sourceTree = "<group>"; };
 		6B7C50ED241BA02F006DDD4C /* GL */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GL; path = ../../../../../usr/local/include/GL; sourceTree = "<group>"; };
 		6B7C50EF241BA11D006DDD4C /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = ../../../../../usr/local/Cellar/glew/2.1.0_1/lib/libGLEW.2.1.0.dylib; sourceTree = "<group>"; };
 		6B7C50F1241BA146006DDD4C /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../usr/local/Cellar/glfw/3.3.1/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
+		6BE9CD70242A3C0700A45E3A /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../../usr/local/Cellar/glfw/3.3.1/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
+		6BE9CD74242A3C7D00A45E3A /* libglut.3.11.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglut.3.11.0.dylib; path = ../../../../../../usr/local/Cellar/freeglut/3.2.1/lib/libglut.3.11.0.dylib; sourceTree = "<group>"; };
+		6BE9CD79242A3D8900A45E3A /* GLFW */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GLFW; path = ../../../../../../usr/local/Cellar/glfw/3.3.1/include/GLFW; sourceTree = "<group>"; };
+		6BE9CD7D242A408F00A45E3A /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = glm; path = ../../../../../../usr/local/Cellar/glm/0.9.9.5/include/glm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,8 +49,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BE9CD7E242A408F00A45E3A /* glm in Frameworks */,
+				6BE9CD7A242A3DDF00A45E3A /* GLFW in Frameworks */,
 				6B7C50EE241BA02F006DDD4C /* GL in Frameworks */,
-				6B7C50EC241BA00D006DDD4C /* GLFW in Frameworks */,
 				6B70D9A024192BAD00F586D7 /* GLKit.framework in Frameworks */,
 				6B70D99F24192BAD00F586D7 /* OpenGL.framework in Frameworks */,
 				6B70D9A124192BAD00F586D7 /* GLUT.framework in Frameworks */,
@@ -84,10 +89,13 @@
 		6B70D99B24192BAD00F586D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6BE9CD7D242A408F00A45E3A /* glm */,
+				6BE9CD79242A3D8900A45E3A /* GLFW */,
+				6BE9CD74242A3C7D00A45E3A /* libglut.3.11.0.dylib */,
 				6B7C50F1241BA146006DDD4C /* libglfw.3.3.dylib */,
+				6BE9CD70242A3C0700A45E3A /* libglfw.3.3.dylib */,
 				6B7C50EF241BA11D006DDD4C /* libGLEW.2.1.0.dylib */,
 				6B7C50ED241BA02F006DDD4C /* GL */,
-				6B7C50EB241BA00D006DDD4C /* GLFW */,
 				6B70D9A22419304D00F586D7 /* GL */,
 				6B70D99D24192BAD00F586D7 /* GLKit.framework */,
 				6B70D99E24192BAD00F586D7 /* GLUT.framework */,
@@ -280,6 +288,8 @@
 					"$(inherited)",
 					/usr/local/Cellar/glew/2.1.0_1/lib,
 					/usr/local/Cellar/glfw/3.3.1/lib,
+					/usr/local/Cellar/glm/0.9.9.5/lib,
+					/usr/local/Cellar/freeglut/3.2.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -296,6 +306,8 @@
 					"$(inherited)",
 					/usr/local/Cellar/glew/2.1.0_1/lib,
 					/usr/local/Cellar/glfw/3.3.1/lib,
+					/usr/local/Cellar/glm/0.9.9.5/lib,
+					/usr/local/Cellar/freeglut/3.2.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
