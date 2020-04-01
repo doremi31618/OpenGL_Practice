@@ -29,6 +29,7 @@ void cube_generator(float, float, float);
 void line_generator(float, float, float, float, float, float);
 void keyboardFunc(unsigned char , int , int );
 void cube_transform_modifier(vector<GLfloat>);
+void rotate_anyAxis(GLfloat , GLfloat , GLfloat , GLfloat );
 
 GLfloat * ScaleMatrix_tool(float, float, float, GLfloat[]);
 GLfloat * RotateMatrix_X_tool(float, GLfloat[]);
@@ -42,6 +43,7 @@ void init(void);
 float _x =0;
 float _y=0;
 float _z=0;
+GLfloat _angle;
 vector<GLfloat> origin_cube_transform = {
     0.0,0.0,0.0,
     0.0,0.0,0.0,
@@ -69,7 +71,6 @@ int main(int argc, char** argv)
     //register callbacks function
     glutReshapeFunc(ChangeSize);  //reshape window size (每次調整視窗大小都會呼叫）
     glutDisplayFunc(RenderScene); //render 資訊寫在這裡
-    
     
     glutMainLoop(); //啟動所有call back function
    return 0;
@@ -216,10 +217,17 @@ void RenderScene(void)
     
     glPushMatrix();
         //modify transform
-        cube_transform_modifier(cube_transform);
+//        cube_transform_modifier(cube_transform);
+        _angle += 1;
+        rotate_anyAxis(_angle,-1,-1,-5);
         //create shape
         cube_generator(0, 0, 0);
     glPopMatrix();
+    
+    glFlush();
+    
+    //re draw again
+    glutPostRedisplay();
     
     glutSwapBuffers();
 }
@@ -248,6 +256,57 @@ void cube_transform_modifier(vector<GLfloat> _transform )
     glMultMatrixf(RotateMatrix_Y_tool(_transform[4],identity_matrix));
     glMultMatrixf(RotateMatrix_Z_tool(_transform[5],identity_matrix));
     glMultMatrixf(TranslateMatrix_tool(_transform[0], _transform[1], _transform[2],identity_matrix));
+    
+}
+
+void rotate_anyAxis(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
+{
+    //perform normalize
+    GLfloat length = sqrt(pow(x,2) + pow(y,2) + pow(z,2));
+    x = x/length;
+    y = y/length;
+    z = z/length;
+    
+    //declare matrix & cos & sin
+    GLfloat arbitary_axis_rotate_matrix[16];
+    GLfloat Cos = cos(angle*PI/180);
+    GLfloat Sin = sin(angle*PI/180);
+    
+    float x_pow_2 = pow(x,2);
+    float y_pow_2 = pow(y,2);
+    float z_pow_2 = pow(z,2);
+    
+    float one_minus_cos = 1 - Cos;
+    
+    //matrix content start
+    
+    //row 1
+    arbitary_axis_rotate_matrix[0] = Cos + one_minus_cos*x_pow_2;
+    arbitary_axis_rotate_matrix[4] = one_minus_cos*x*y - Sin*z;
+    arbitary_axis_rotate_matrix[8] = one_minus_cos*x*z + Sin*y;
+    arbitary_axis_rotate_matrix[12] = 1;
+    
+    //row2
+    arbitary_axis_rotate_matrix[1] = one_minus_cos*x*y + Sin*z;
+    arbitary_axis_rotate_matrix[5] = Cos + one_minus_cos*y_pow_2;;
+    arbitary_axis_rotate_matrix[9] = one_minus_cos*y*z - Sin*x;
+    arbitary_axis_rotate_matrix[13] = 1;
+    
+    //row3
+    arbitary_axis_rotate_matrix[2] = one_minus_cos*z*x - Sin*y;
+    arbitary_axis_rotate_matrix[6] = one_minus_cos*z*y + Sin*x;
+    arbitary_axis_rotate_matrix[10] = Cos + one_minus_cos*z_pow_2;
+    arbitary_axis_rotate_matrix[14] = 1;
+    
+    //row4
+    arbitary_axis_rotate_matrix[3] = 0;
+    arbitary_axis_rotate_matrix[7] = 0;
+    arbitary_axis_rotate_matrix[11] = 0;
+    arbitary_axis_rotate_matrix[15] = 1;
+    
+    //matrix content end
+    
+    glMultMatrixf(arbitary_axis_rotate_matrix);
     
 }
 GLfloat * ScaleMatrix_tool(GLfloat x, GLfloat y, GLfloat z, GLfloat scale_matrix[])
@@ -287,7 +346,7 @@ GLfloat * RotateMatrix_Z_tool(GLfloat z,GLfloat rotate_matrix_z[])
     rotate_matrix_z[0] = cos(z*PI/180); rotate_matrix_z[4] = -sin(z*PI/180);rotate_matrix_z[8]=0;   rotate_matrix_z[12] = 0;
     rotate_matrix_z[1] = sin(z*PI/180); rotate_matrix_z[5] = cos(z*PI/180); rotate_matrix_z[9]=0;   rotate_matrix_z[13] = 0;
     rotate_matrix_z[2] = 0;             rotate_matrix_z[6] = 0;             rotate_matrix_z[10]=1; rotate_matrix_z[14] = 0;
-    rotate_matrix_z[3] = 0;
+    rotate_matrix_z[3] = 0;             rotate_matrix_z[7] = 0;             rotate_matrix_z[11] = 0; rotate_matrix_z[15] = 1;
     
     return rotate_matrix_z;
 }
