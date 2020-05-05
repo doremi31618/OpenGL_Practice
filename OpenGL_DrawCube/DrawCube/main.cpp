@@ -10,10 +10,10 @@
 //#include <GL/glew.h>
 
 //include opengl
+#include <GLUT/glut.h>
 #include <glm/glm.hpp>
-#include <GL/freeglut.h>
 #include <GLFW/glfw3.h>
-
+#include "model.h"
 //include standarad lib
 #include <iostream>
 #include <vector>
@@ -30,6 +30,8 @@ void line_generator(float, float, float, float, float, float);
 void keyboardFunc(unsigned char , int , int );
 void cube_transform_modifier(vector<GLfloat>);
 void rotate_anyAxis(GLfloat , GLfloat , GLfloat , GLfloat );
+void mouseClicks(int , int, int , int);
+void menu(int num);
 
 GLfloat * ScaleMatrix_tool(float, float, float, GLfloat[]);
 GLfloat * RotateMatrix_X_tool(float, GLfloat[]);
@@ -39,48 +41,81 @@ GLfloat * TranslateMatrix_tool(float , float , float , GLfloat[]);
 
 
 
+
 void init(void);
-float _x =0;
-float _y=0;
-float _z=0;
+float _x,_y,_z=0;
+float point_x,point_y,point_z = 0;
 GLfloat _angle;
+vector<GLfloat> cube_transform;
 vector<GLfloat> origin_cube_transform = {
     0.0,0.0,0.0,
     0.0,0.0,0.0,
     1.0,1.0,1.0
 };
-vector<GLfloat> cube_transform;
+static int window;
+static int menu_id;
+static int submenu_id;
+static int value = 0;
 
-
+int colorMenu, modelMenu;
 
 
 
 int main(int argc, char** argv)
 {
-    init();
+  
     //create a new glut
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB );
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(400,400);
     glutInitWindowPosition(600,80);
     glutCreateWindow("Simple Rectangle");
-    glutKeyboardFunc(keyboardFunc);
+    glutReshapeFunc(ChangeSize);
     
+    init();
+    glutKeyboardFunc(keyboardFunc);
     buildPopupMenu();
+    glutMouseFunc(&mouseClicks);
+    glutDisplayFunc(RenderScene); //render 資訊寫在這裡
+    
+    
     
     //register callbacks function
-    glutReshapeFunc(ChangeSize);  //reshape window size (每次調整視窗大小都會呼叫）
-    glutDisplayFunc(RenderScene); //render 資訊寫在這裡
+    //reshape window size (每次調整視窗大小都會呼叫）
+    
     
     glutMainLoop(); //啟動所有call back function
    return 0;
 }
 void init()
 {
+    origin_cube_transform = {
+        0.0,0.0,0.0,
+        0.0,0.0,0.0,
+        1.0,1.0,1.0
+    };
+
     cube_transform = origin_cube_transform;
-    
+    point_x,point_z = 0;
+    point_y = 1;
 }
 
+void mouseClicks(int button, int state, int x, int y)
+{
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+        
+        float w = glutGet(GLUT_WINDOW_WIDTH)/2;
+        float h = glutGet(GLUT_WINDOW_HEIGHT)/2;
+        
+        
+        point_x = 10*(x-w)/w;
+        point_y = 10*(h-y)/h;
+        
+        std::cout << "point_x : " << point_x << " point_Y : " << point_y << "\n";
+    }
+    
+}
 void menuSelect(int option)
 {
     switch(option)
@@ -93,6 +128,10 @@ void menuSelect(int option)
         glShadeModel(GL_SMOOTH);
         glutPostRedisplay();
         break;
+    case 2:
+           glShadeModel(GL_SMOOTH);
+           glutPostRedisplay();
+           break;
     default:
         break;
     }
@@ -173,12 +212,35 @@ void keyboardFunc(unsigned char key, int x, int y)
     }
     RenderScene();
 }
+
+void menu(int num){
+  if(num == 0){
+    glutDestroyWindow(window);
+    exit(0);
+  }else{
+    value = num;
+  }
+  glutPostRedisplay();
+}
+
 void buildPopupMenu()
 {
-    int menu_id;
-    menu_id = glutCreateMenu(menuSelect);
-    glutAddMenuEntry("Flat",0);
-    glutAddMenuEntry("Smooth",1);
+    int second_submenu = glutCreateMenu(menu);
+    glutAddMenuEntry("Sphere", 2);
+    glutAddMenuEntry("Cone", 3);
+    glutAddMenuEntry("Torus", 4);
+    glutAddMenuEntry("Teapot", 5);
+   
+    submenu_id = glutCreateMenu(menu);
+    glutAddMenuEntry("Sphere", 2);
+    glutAddMenuEntry("Cone", 3);
+    glutAddMenuEntry("Torus", 4);
+    glutAddMenuEntry("Teapot", 5);
+    
+    menu_id = glutCreateMenu(menu);
+    glutAddMenuEntry("Clear", 1);
+    glutAddSubMenu("Draw", submenu_id);
+    glutAddSubMenu("Second_Draw", second_submenu);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
 }
@@ -209,38 +271,33 @@ void RenderScene(void)
     glLoadIdentity();
    
     //draw axis
-    gluLookAt(4,3,4,0,0,0,0,1,0);
     line_generator(10.0,0.0,0.0,-10.0,0.0,0.0);
     line_generator(0.0,10.0, 0, 0, -10.0,0);
     line_generator(0.0,0.0,10.0, 0.0,0.0,-10.0);
-    
+    line_generator(0.0, 0.0, 0.0, point_x, point_y, point_z);
     
     glPushMatrix();
-        //modify transform
-//        cube_transform_modifier(cube_transform);
-        _angle += 1;
-        rotate_anyAxis(_angle,-1,-1,-5);
-        //create shape
-        cube_generator(0, 0, 0);
+        cube_transform_modifier(cube_transform);
+        _angle += 1;rotate_anyAxis(_angle,point_x,point_y,point_z);
+        cube_generator(0, 0, 0);//create shape
     glPopMatrix();
-    
+
     glFlush();
-    
-    //re draw again
-    glutPostRedisplay();
-    
+    glutPostRedisplay();//re draw again
     glutSwapBuffers();
 }
+
+
 
 void line_generator(float x, float y,float z, float x2, float y2, float z2)
 {
     glBegin(GL_LINES);
-        float r = x*x2 !=0 ? 1 : 0;
+        
+    float r = x*x2 !=0 ? 1 : 0;
         float g = y*y2 !=0 ? 1 : 0;
         float b = z*z2 !=0 ? 1 : 0;
     
         glColor3f(r,g,b);
-    
         glVertex3f( x, y,z);
         glVertex3f(x2,y2,z2);
     
@@ -284,19 +341,19 @@ void rotate_anyAxis(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
     arbitary_axis_rotate_matrix[0] = Cos + one_minus_cos*x_pow_2;
     arbitary_axis_rotate_matrix[4] = one_minus_cos*x*y - Sin*z;
     arbitary_axis_rotate_matrix[8] = one_minus_cos*x*z + Sin*y;
-    arbitary_axis_rotate_matrix[12] = 1;
+    arbitary_axis_rotate_matrix[12] = 0;
     
     //row2
     arbitary_axis_rotate_matrix[1] = one_minus_cos*x*y + Sin*z;
     arbitary_axis_rotate_matrix[5] = Cos + one_minus_cos*y_pow_2;;
     arbitary_axis_rotate_matrix[9] = one_minus_cos*y*z - Sin*x;
-    arbitary_axis_rotate_matrix[13] = 1;
+    arbitary_axis_rotate_matrix[13] = 0;
     
     //row3
     arbitary_axis_rotate_matrix[2] = one_minus_cos*z*x - Sin*y;
     arbitary_axis_rotate_matrix[6] = one_minus_cos*z*y + Sin*x;
     arbitary_axis_rotate_matrix[10] = Cos + one_minus_cos*z_pow_2;
-    arbitary_axis_rotate_matrix[14] = 1;
+    arbitary_axis_rotate_matrix[14] = 0;
     
     //row4
     arbitary_axis_rotate_matrix[3] = 0;
@@ -305,9 +362,8 @@ void rotate_anyAxis(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
     arbitary_axis_rotate_matrix[15] = 1;
     
     //matrix content end
-    
     glMultMatrixf(arbitary_axis_rotate_matrix);
-    
+
 }
 GLfloat * ScaleMatrix_tool(GLfloat x, GLfloat y, GLfloat z, GLfloat scale_matrix[])
 {
@@ -323,7 +379,7 @@ GLfloat * RotateMatrix_X_tool(GLfloat x,GLfloat rotate_matrix_x[])
 {
 //    float scale_matrix[16];
     
-    rotate_matrix_x[0] = 1; rotate_matrix_x[4] = 0;  rotate_matrix_x[8] = 0; rotate_matrix_x[12] = 0;
+    rotate_matrix_x[0] = 1; rotate_matrix_x[4] = 0;              rotate_matrix_x[8] = 0;              rotate_matrix_x[12] = 0;
     rotate_matrix_x[1] = 0; rotate_matrix_x[5] = cos(x*PI/180);  rotate_matrix_x[9] = -sin(x*PI/180); rotate_matrix_x[13] = 0;
     rotate_matrix_x[2] = 0; rotate_matrix_x[6] = sin(x*PI/180);  rotate_matrix_x[10] = cos(x * PI/180); rotate_matrix_x[14] = 0;
     rotate_matrix_x[3] = 0; rotate_matrix_x[7] = 0; rotate_matrix_x[11] = 0; rotate_matrix_x[15] = 1;
@@ -374,14 +430,6 @@ void cube_generator(float x, float y, float z){
         //  | /      |/
         //  v2-------v3
     
-        //point 1 glVertex3f( x+width/2, y+height/2, z+depth/2 );
-        //point 2 glVertex3f( x+width/2, y+height/2, z-depth/2 );
-        //point 3 glVertex3f( x+width/2, y-height/2, z+depth/2 );
-        //point 4 glVertex3f( x+width/2, y-height/2, z-depth/2 );
-        //point 5 glVertex3f( x-width/2, y+height/2, z+depth/2 );
-        //point 6 glVertex3f( x-width/2, y+height/2, z-depth/2 );
-        //point 7 glVertex3f( x-width/2, y-height/2, z+depth/2 );
-        //point 8 glVertex3f( x-width/2, y-height/2, z-depth/2 );
          
         //face 6
         glColor3f( 0, 1, 0);glVertex3f( x-width/2, y-height/2, z+depth/2 );
