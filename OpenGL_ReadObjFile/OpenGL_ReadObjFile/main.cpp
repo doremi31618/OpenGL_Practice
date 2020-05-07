@@ -91,15 +91,16 @@ int main(int argc, char* argv[])
 
 
     //设定OPENGL窗口位置和大小
-    glutInitWindowSize(500, 500);
+    glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("OpenGL");
 
     
-    myinit();
+   
     glutReshapeFunc(myReshape);
     glutSpecialFunc(processSpecialKeys);
     glutKeyboardFunc(processNormalKeys);
+    myinit();
     glutDisplayFunc(display);
     createMenu();
     glutMainLoop();
@@ -115,7 +116,13 @@ void myinit(void)
 
     glShadeModel(GL_SMOOTH);
 //    glShadeModel(GL_FLAT);
-    
+    //设定视区
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    //设定透视方式
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(80.0, 1.0*(GLfloat)WINDOW_WIDTH/(GLfloat)WINDOW_HEIGHT, 0.1, 3000.0);
 
 
 }
@@ -316,6 +323,7 @@ void processSpecialKeys(int key, int x, int y)
     switch (key) {
     case GLUT_KEY_LEFT:
         G_fAngle_horizon -= 10.0f;
+        
         break;
     case GLUT_KEY_RIGHT:
         G_fAngle_horizon += 10.0f;
@@ -327,6 +335,7 @@ void processSpecialKeys(int key, int x, int y)
         G_fAngle_vertical += 10.0f;
         break;
     }
+   
     glutPostRedisplay();
 }
 

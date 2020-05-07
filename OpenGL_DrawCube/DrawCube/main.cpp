@@ -70,20 +70,14 @@ int main(int argc, char** argv)
     glutInitWindowSize(400,400);
     glutInitWindowPosition(600,80);
     glutCreateWindow("Simple Rectangle");
+    
     glutReshapeFunc(ChangeSize);
+    glutKeyboardFunc(keyboardFunc);
+    glutMouseFunc(mouseClicks);
+    buildPopupMenu();
     
     init();
-    glutKeyboardFunc(keyboardFunc);
-    buildPopupMenu();
-    glutMouseFunc(&mouseClicks);
     glutDisplayFunc(RenderScene); //render 資訊寫在這裡
-    
-    
-    
-    //register callbacks function
-    //reshape window size (每次調整視窗大小都會呼叫）
-    
-    
     glutMainLoop(); //啟動所有call back function
    return 0;
 }
